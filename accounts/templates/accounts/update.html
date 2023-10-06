@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>UPDATE PAGE</h1>
+<form action="{% url "accounts:update" %}" method='POST'>
+  {% csrf_token %}
+  {% for field in form %}
+    <div class="fieldWrapper">
+        {{ field.errors }}
+        
+        {% if field.label != "Password" %}
+        {{ field.label_tag }} 111 {{ field }}
+        {% endif %}
+        {% if field.help_text %}
+        <p class="help">{{ field.help_text|safe }}</p>
+        {% endif %}
+    </div>
+{% endfor %}
+  <input type="submit" value='수정'>
+</form>
+<form action="{% url "accounts:delete" %}" method='POST'>
+  {% csrf_token %}
+  <input type="submit" value='회원탈퇴'>
+</form>
+<form action="{% url 'change_password' user.pk%}" method='POST'>
+  {% csrf_token %}
+  <input type="submit" value='비밀번호변경'>
+</form>
+{% endblock content %}
+
